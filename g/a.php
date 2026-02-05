@@ -1,8 +1,6 @@
-<?php
+<?php 
 include 'connectdb.php'; 
-
-$sql = "SELECT * FROM popsupermarket"; 
-$query = mysqli_query($conn, $sql);    
+$query = mysqli_query($conn, "SELECT * FROM popsupermarket"); 
 ?>
 
 <!DOCTYPE html>
