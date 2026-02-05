@@ -1,3 +1,10 @@
+<?php
+include 'connectdb.php'; 
+
+$sql = "SELECT * FROM popsupermarket"; 
+$query = mysqli_query($conn, $sql);    
+?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
