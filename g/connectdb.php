@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "chanikan";
 $pwd  = "123456";     
-$db   = "4145db";
+$db   = "4066db";
 
 $conn = mysqli_connect($host, $user, $pwd, $db);
 
