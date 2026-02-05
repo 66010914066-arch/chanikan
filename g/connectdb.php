@@ -1,8 +1,14 @@
 <?php
-	$host = "localhost";
-    $user = "root";
-    $pwd = "";
-    $db = "4066db";
-    $conn = mysqli_connect($host,$user,$pwd,$db) or die ("เชื่อมต่อฐานข้อมูลไม่ได้");
-    mysqli_query($conn,"SET NAMES utf8");
+$host = "localhost";
+$user = "chanikan";
+$pwd  = "123456";     
+$db   = "4145db";
+
+$conn = mysqli_connect($host, $user, $pwd, $db);
+
+if (!$conn) {
+    die("เชื่อมต่อฐานข้อมูลไม่ได้ : " . mysqli_connect_error());
+}
+
+mysqli_set_charset($conn, "utf8");
 ?>
