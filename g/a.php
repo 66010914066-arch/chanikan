@@ -1,57 +1,60 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="th">
 <head>
-<meta charset="utf-8">
-<title>ชนิกานต์ ขำสระน้อย (ปุ้ม)</title>
+    <meta charset="UTF-8">
+    <title>รายงานข้อมูลสินค้า - ชนิกานต์</title>
+    <style>
+        body { font-family: Tahoma, sans-serif; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        img { border-radius: 4px; object-fit: cover; background-color: #eee; }
+    </style>
 </head>
-
 <body>
-<h1>ชนิกานต์ ขำสระน้อย (ปุ้ม)</h1>
 
-<table border="1">
-<tr>
-    <th>Oder ID</th>
-    <th>สินค้า</th>
-    <th>ประเภทสินค้า</th>
-    <th>วันที่</th>
-    <th>ประเทศ</th>
-    <th>จำนวนเงิน</th>
-    <th>รูป</th>
-</tr>
+    <h2>ชื่อนักศึกษา: ชนิกานต์ ขำสระน้อย (ปุ้ม)</h2>
 
-<?php
-include_once("connectdb.php");
-$sql = "SELECT * FROM popsupermarket
-        WHERE p_country = 'Sweden'
-        AND p_category ='Vegetables'
-        ORDER BY p_product_name ASC";
-
-$rs = mysqli_query($conn,$sql);
-$total = 0;
-
-while ($data = mysqli_fetch_array($rs)){
-    $total += $data['p_amount'];
-?>
-<tr>
-    <td><?php echo $data['p_order_id']; ?></td>
-    <td><?php echo $data['p_product_name']; ?></td>
-    <td><?php echo $data['p_category']; ?></td>
-    <td><?php echo $data['p_date']; ?></td>
-    <td><?php echo $data['p_country']; ?></td>
-    <td align="right"><?php echo number_format($data['p_amount'],0); ?></td>
-    <td align="center">
-        <img src="<?php echo $data['p_product_name']; ?>.jpg" width="55">
-    </td>
-</tr>
-<?php } ?>
-
-<tr>
-    <td colspan="5" align="right"><b>รวม</b></td>
-    <td align="right"><b><?php echo number_format($total,0); ?></b></td>
-    <td>&nbsp;</td>
-</tr>
-
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>สินค้า</th>
+                <th>ประเภท</th>
+                <th>วันที่</th>
+                <th>ประเทศ</th>
+                <th>จำนวนเงิน</th>
+                <th>รูปสินค้า</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if (mysqli_num_rows($query) > 0) {
+                while($row = mysqli_fetch_array($query)) { 
+            ?>
+            <tr>
+                <td><?php echo $row['p_order_id']; ?></td>
+                <td><?php echo $row['p_product_name']; ?></td>
+                <td><?php echo $row['p_category']; ?></td>
+                <td><?php echo $row['p_date']; ?></td>
+                <td><?php echo $row['p_country']; ?></td>
+                <td><?php echo number_format($row['p_amount']); ?></td>
+                <td>
+                    <img src="img/<?php echo $row['p_order_id']; ?>.jpg" 
+                         width="50" height="50" 
+                         alt="ไม่มีรูป" 
+                         onerror="this.src='https://via.placeholder.com/50?text=No+Img'">
+                </td>
+            </tr>
+            <?php 
+                } 
+            } else {
+                echo "<tr><td colspan='7'>ไม่พบข้อมูลในตาราง popsupermarket</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
 
 </body>
 </html>
