@@ -1,8 +1,9 @@
-<?php 
+<?php
 include 'connectdb.php'; 
-$query = mysqli_query($conn, "SELECT * FROM popsupermarket"); 
-?>
 
+$sql = "SELECT * FROM popsupermarket";
+$query = mysqli_query($conn, $sql);
+?>
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -10,18 +11,16 @@ $query = mysqli_query($conn, "SELECT * FROM popsupermarket");
     <title>รายงานข้อมูลสินค้า - ชนิกานต์</title>
     <style>
         body { font-family: Tahoma, sans-serif; padding: 20px; }
-        table { border-collapse: collapse; width: 100%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
         th { background-color: #4CAF50; color: white; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        img { border-radius: 4px; object-fit: cover; background-color: #eee; }
     </style>
 </head>
 <body>
 
     <h2>ชื่อนักศึกษา: ชนิกานต์ ขำสระน้อย (ปุ้ม)</h2>
 
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>Order ID</th>
@@ -30,14 +29,10 @@ $query = mysqli_query($conn, "SELECT * FROM popsupermarket");
                 <th>วันที่</th>
                 <th>ประเทศ</th>
                 <th>จำนวนเงิน</th>
-                <th>รูปสินค้า</th>
             </tr>
         </thead>
         <tbody>
-            <?php 
-            if (mysqli_num_rows($query) > 0) {
-                while($row = mysqli_fetch_array($query)) { 
-            ?>
+            <?php while($row = mysqli_fetch_array($query)) { ?>
             <tr>
                 <td><?php echo $row['p_order_id']; ?></td>
                 <td><?php echo $row['p_product_name']; ?></td>
@@ -45,19 +40,8 @@ $query = mysqli_query($conn, "SELECT * FROM popsupermarket");
                 <td><?php echo $row['p_date']; ?></td>
                 <td><?php echo $row['p_country']; ?></td>
                 <td><?php echo number_format($row['p_amount']); ?></td>
-                <td>
-                    <img src="img/<?php echo $row['p_order_id']; ?>.jpg" 
-                         width="50" height="50" 
-                         alt="ไม่มีรูป" 
-                         onerror="this.src='https://via.placeholder.com/50?text=No+Img'">
-                </td>
             </tr>
-            <?php 
-                } 
-            } else {
-                echo "<tr><td colspan='7'>ไม่พบข้อมูลในตาราง popsupermarket</td></tr>";
-            }
-            ?>
+            <?php } ?>
         </tbody>
     </table>
 
